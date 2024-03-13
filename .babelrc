@@ -1,0 +1,14 @@
+// babelrc를 추가하지 않으면 문자열 안에 style이 들어가기 때문에, style이 적용되기 전에 rendering되는 현상 발생
+{
+    "presets": ["next/babel"],
+    "plugins": [
+        [
+            "styled-components",
+            {
+                "ssr": true,
+                "displayName": true,
+                "preprocess": false
+            }
+        ]
+    ]
+}
