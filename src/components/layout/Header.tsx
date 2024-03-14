@@ -1,8 +1,9 @@
 import styled, { StyledInterface } from "styled-components";
-import User from "../icon/User";
+import { theme } from "@/styles/theme";
 import { BsList, BsPersonCircle } from "react-icons/bs";
 import { useState } from "react";
 import Button from "@/components/button/Button";
+import Menu from "./Menu";
 import { NextRouter, useRouter } from "next/router";
 
 const HeaderBox: StyledInterface = styled.header`
@@ -17,16 +18,21 @@ const HeaderBox: StyledInterface = styled.header`
     background-color: #fff;
     z-index: 1;
 
-    .menu-icon-btn {
-        width: 22px;
-        height: 22px;
-        padding: 5px;
-        border-radius: 15px;
-        color: #5a6a85;
-        cursor: pointer;
+    .side-menu-btn {
+        display: none;
 
-        &:hover {
-            background-color: #f5f8ff;
+        @media ${theme.device.tablet} {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            padding: 5px;
+            border-radius: 15px;
+            color: #5a6a85;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f5f8ff;
+            }
         }
     }
 
@@ -35,6 +41,14 @@ const HeaderBox: StyledInterface = styled.header`
         height: 28px;
         color: #5a6a85;
         cursor: pointer;
+    }
+`;
+
+const MenuWrapper: StyledInterface = styled.div`
+    display: inline-block;
+
+    @media ${theme.device.tablet} {
+        display: none;
     }
 `;
 
@@ -81,11 +95,14 @@ const Header = (props): JSX.Element => {
 
     return (
         <HeaderBox>
-            <BsList onClick={() => props.toggleMenu()} className="menu-icon-btn" />
-            <BsPersonCircle
+            <MenuWrapper>
+                <Menu />
+            </MenuWrapper>
+            <BsList onClick={() => props.toggleMenu()} className="side-menu-btn" />
+            {/* <BsPersonCircle
                 onClick={() => setIsShowUserMenu(!isShowUserMenu)}
                 className="user-icon-btn"
-            ></BsPersonCircle>
+            ></BsPersonCircle> */}
             <UserMenuWrapper className={isShowUserMenu ? "on" : ""}>
                 <UserMenuList>
                     <Button onClick={logout} txtColor="#2a3547" color="#fff">
