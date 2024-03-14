@@ -8,7 +8,8 @@ const TextBoxWrapper = styled.div`
     border-radius: 4px;
     border: 1px solid #d6dbe4;
     padding: 0 5px;
-    transition: all ease 0.2s;
+    transition: all ease 0.1s;
+    background-color: #fff;
 
     &:focus-within {
         border: 1px solid ${theme.colors.warning};
@@ -36,7 +37,7 @@ const BasicTextBox = styled.input`
     }
 `;
 
-const TextBox = ({ children, placeholder, rules, isSelect, value, ...rest }) => {
+const TextBox = ({ children, placeholder, rules, isSelect, value, innerClass, ...rest }) => {
     const [isValid, setIsValid] = useState(true);
 
     const checkValid = (value) => {
@@ -54,7 +55,7 @@ const TextBox = ({ children, placeholder, rules, isSelect, value, ...rest }) => 
     };
 
     return (
-        <TextBoxWrapper className={isValid ? "" : "invalid"}>
+        <TextBoxWrapper className={`${isValid ? "" : "invalid"} ${innerClass ? innerClass : ""}`}>
             <BasicTextBox
                 onBlur={(e) => checkValid(e.target.value)}
                 onFocus={(e) => isSelect && e.target.select()}

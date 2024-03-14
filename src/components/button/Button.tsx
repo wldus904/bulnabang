@@ -25,7 +25,7 @@ const DefaultButton: StyledInterface = styled.button`
     font-weight: bold;
     padding-left: 14px;
     padding-right: 14px;
-    transition: all ease 0.2s;
+    transition: all ease 0.1s;
     height: ${(props) => props.height ?? "32"}px;
     width: ${(props) => props.width ?? "100%"};
     font-size: 14px;
@@ -71,11 +71,11 @@ const OutlineButton: StyledInterface = styled(DefaultButton)`
     }
 `;
 
-const Button = ({ children, loading, disabled, ...rest }): JSX.Element => {
+const Button = ({ children, loading, disabled, innerClass, ...rest }): JSX.Element => {
     if (rest.outline)
         return (
             <OutlineButton
-                className={loading || disabled ? "" : "able"}
+                className={`${loading || disabled ? "" : "able"} ${innerClass ? innerClass : ""}`}
                 disabled={loading || disabled}
                 {...rest}
             >
@@ -85,7 +85,7 @@ const Button = ({ children, loading, disabled, ...rest }): JSX.Element => {
     else
         return (
             <BasicButton
-                className={loading || disabled ? "" : "able"}
+                className={`${loading || disabled ? "" : "able"} ${innerClass ? innerClass : ""}`}
                 disabled={loading || disabled}
                 {...rest}
             >
