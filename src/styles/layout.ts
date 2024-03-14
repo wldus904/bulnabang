@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { theme } from "./theme";
 
-const LayoutWrapper = styled.div`
+export const LayoutWrapper = styled.div`
     height: 100vh;
     overflow-y: auto;
-    background-color: #fafafa;
+    background-color: #f9f5fc;
     &::-webkit-scrollbar {
         width: 15px; /* 스크롤바의 너비 */
     }
 `;
 
-const OverLay = styled.div`
+export const OverLay = styled.div`
     position: fixed;
     height: 100%;
     width: 100%;
@@ -30,11 +30,11 @@ const OverLay = styled.div`
     }
 `;
 
-const LayoutBox = styled.div`
+export const LayoutBox = styled.div`
     height: calc(100% - 70px);
     display: flex;
 `;
-const SideMenuBox = styled.div`
+export const SideMenuBox = styled.div`
     position: absolute;
     width: 260px;
     left: -260px;
@@ -51,18 +51,16 @@ const SideMenuBox = styled.div`
         left: 0px;
     }
 `;
-const MainBox = styled.div`
+export const MainBox = styled.div`
     position: relative;
     width: 100vw;
     height: 100%;
 `;
-const Contents = styled.div`
+export const Contents = styled.div`
     position: relative;
     max-width: 900px;
-    padding: 20px;
+    padding: 10px;
     min-height: calc(100vh - 100px); // view height - (header + footer)
     background-color: #fff;
     margin: auto;
 `;
-
-export { LayoutWrapper, OverLay, LayoutBox, SideMenuBox, MainBox, Contents };
