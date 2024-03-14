@@ -11,7 +11,7 @@ const MainIconWrapper: StyledInterface = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 
     .close {
         width: 28px;
@@ -41,10 +41,13 @@ const SideMenu = (props): JSX.Element => {
     const router: NextRouter = useRouter();
     let [currentPath, setCurrentPath] = useState<string | null>(router.pathname);
     const menus = [
-        { name: "About", url: "/about" },
-        { name: "Users", url: "/users" },
-        { name: "Users API", url: "/api/users" },
+        { name: "Data upload", url: "/upload" },
+        { name: "Data table", url: "/table" },
     ];
+
+    useEffect(() => {
+        setCurrentPath(router.pathname);
+    }, [router.pathname]);
 
     const move = (e: MouseEvent, url: string): void => {
         e.preventDefault();
