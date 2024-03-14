@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
     html {
       box-sizing: border-box;
-      color: #2a3547;
+      color: #5A616D;
       line-height: 16px;
       font-size: 14px;
     }
@@ -19,9 +19,9 @@ export const GlobalStyle = createGlobalStyle`
     a { 
       cursor: pointer; 
       text-decoration: none; 
-      &:link { color: #2a3547; text-decoration: non; }
-      &:visited { color: #2a3547; text-decoration: non; }
-      &:hover { color: #2a3547; text-decoration: non; }
+      &:link { color: #5A616D; text-decoration: non; }
+      &:visited { color: #5A616D; text-decoration: non; }
+      &:hover { color: #5A616D; text-decoration: non; }
     }
 
     &::-webkit-scrollbar {
