@@ -7,7 +7,7 @@ import { theme } from "@/styles/theme";
 const Button: StyledInterface = styled.a`
     max-width: 190px;
     padding: 15px;
-    transition: all ease 200ms 0s;
+    transition: all ease 100ms 0s;
     border-radius: 3px;
 
     &:hover {
@@ -25,6 +25,9 @@ const MenuButton = ({ children, currentPath, ...rest }): JSX.Element => {
         if (currentPath === rest.href) {
             buttonRef.current.style.backgroundColor = theme.colors.primary;
             buttonRef.current.style.color = "#fff";
+        } else {
+            buttonRef.current.style.backgroundColor = "#fff";
+            buttonRef.current.style.color = theme.colors.textPrimary;
         }
     }, [currentPath]);
 
