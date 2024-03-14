@@ -12,7 +12,7 @@ const FooterBox: StyledInterface = styled.footer`
 
 const Footer = (): JSX.Element => (
     <FooterBox>
-        <span>Made by jypark2781@gmail.com</span>
+        <span>Made by DDULDDUL</span>
     </FooterBox>
 );
 
