@@ -3,7 +3,7 @@ import { NextRouter, useRouter } from "next/router";
 
 const IndexPage = (): void => {
     const router = useRouter();
-    if (typeof window !== "undefined") router.push("/main/dashboard");
+    if (typeof window !== "undefined") router.push("/upload");
 };
 
 export default IndexPage;
