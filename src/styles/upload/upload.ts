@@ -36,7 +36,7 @@ export const InputWrapper: StyledInterface = styled.div`
 export const FileInputContent: StyledInterface = styled.ul`
     width: 100%;
     padding: 0;
-    background-color: #f9fbff;
+    background-color: #f7f3ff;
     list-style-type: none;
     border-top: 2px solid #aeb3bd;
 `;
@@ -52,6 +52,22 @@ export const FileInputBox: StyledInterface = styled.li`
         border: 1px solid #E3EAF8
         font-weight: 600;
         color: ${theme.colors.textPrimary};
+    }
+
+    .input-box {
+        margin-right: 10px;
+        &:nth-child(1) {
+            width: calc(30% - 10px);
+            max-width: 200px;
+        }
+        &:nth-child(2) {
+            width: calc(30% - 10px);
+            max-width: 200px;
+        }
+        &:nth-child(3) {
+            width: calc(40% - 10px);
+            max-width: 400px;
+        }
     }
 `;
 

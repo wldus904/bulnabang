@@ -5,23 +5,23 @@ import { normalize } from "styled-normalize";
 export const GlobalStyle = createGlobalStyle`
     ${normalize}
     document, html, body {
-      height: 100%;
-      width: 100%;
+        height: 100%;
+        width: 100%;
     }
 
     html {
-      box-sizing: border-box;
-      color: #5A616D;
-      line-height: 16px;
-      font-size: 14px;
+        box-sizing: border-box;
+        color: #5A616D;
+        line-height: 16px;
+        font-size: 14px;
     }
 
     a { 
-      cursor: pointer; 
-      text-decoration: none; 
-      &:link { color: #5A616D; text-decoration: non; }
-      &:visited { color: #5A616D; text-decoration: non; }
-      &:hover { color: #5A616D; text-decoration: non; }
+        cursor: pointer; 
+        text-decoration: none; 
+        &:link { color: #5A616D; text-decoration: non; }
+        &:visited { color: #5A616D; text-decoration: non; }
+        &:hover { color: #5A616D; text-decoration: non; }
     }
 
     &::-webkit-scrollbar {
@@ -43,5 +43,12 @@ export const GlobalStyle = createGlobalStyle`
         &:hover {
           background-color: #f2f5fa;
         }
+    }
+
+    /////////////////////////////////////////// button
+    .small-btn {
+        width: fit-content;
+        min-width: 52px;
+        padding: 4px 12px;
     }
 `;

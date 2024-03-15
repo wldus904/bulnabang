@@ -4,7 +4,7 @@ import { theme } from "./theme";
 export const LayoutWrapper = styled.div`
     height: 100vh;
     overflow-y: auto;
-    background-color: #f9f5fc;
+    background-color: #f7f5fa;
     &::-webkit-scrollbar {
         width: 15px; /* 스크롤바의 너비 */
     }
@@ -58,9 +58,10 @@ export const MainBox = styled.div`
 `;
 export const Contents = styled.div`
     position: relative;
-    max-width: 900px;
+    max-width: 1100px;
     padding: 10px;
     min-height: calc(100vh - 100px); // view height - (header + footer)
     background-color: #fff;
     margin: auto;
+    margin-top: 20px;
 `;
