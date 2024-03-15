@@ -23,6 +23,7 @@ import { uploadValid, uploadRes } from "@/interfaces/upload";
 
 // components
 import TextBox from "@/components/input/TextBox";
+import File from "@/components/input/File";
 import Button from "@/components/button/Button";
 import DefaultDialog from "@/components/dialog/DefaultDialog";
 
@@ -33,28 +34,37 @@ const Upload = (): JSX.Element => {
     const [contract, setContract] = useState<str>(null);
     const [price, setPrice] = useState<num>(null);
     const [files, setFiles] = useState<coinFile[]>([]);
+    const [file, setFile] = useState<File>(null);
+    const [block, setBlock] = useState<str>([]);
+    const [timeStamp, setTimeStamp] = useState<str>([]);
     const [optionValid, setOptionValid] = useState<uploadValid>({
         ticker: null,
         contract: null,
         price: null,
         files: [],
     });
+    const [fileValid, setFileValid] = useState<uploadValid>({
+        file: null,
+        block: null,
+        timeStamp: null,
+    });
     const [isValid, setIsValid] = useState<Boolean>(false);
+    const [isAddValid, setIsAddValid] = useState<Boolean>(false);
     const [loading, setLoading] = useState<Boolean>(false);
     const msgDialogRef = useRef<ref>();
 
-    const validator = (): void => {
+    const validator = (valid, setIs): void => {
         let res: Boolean = true;
-        Object.keys(optionValid).forEach((valid: string) => {
-            if (!optionValid[valid]) {
+        Object.keys(valid).forEach((key: string) => {
+            if (!valid[key]) {
                 res = false;
             }
         });
-        setIsValid(res);
+        setIs(res);
     };
 
     const uploadFile = async (): void => {
-        validator();
+        validator(optionValid, setIsValid);
         if (!isValid) return;
 
         setLoading(true);
@@ -76,11 +86,19 @@ const Upload = (): JSX.Element => {
         }
     };
 
+    const addFile = () => {
+        setFiles([...files, file]);
+        console.log("files ::: ", files);
+    };
+
     const closeDialog = (): void => {
         msgDialogRef.current.close();
     };
 
-    useEffect(validator, [optionValid]);
+    useEffect(() => {
+        validator(optionValid, setIsValid);
+        validator(fileValid, setIsAddValid);
+    }, [optionValid, fileValid]);
 
     return (
         <UploadWrapper>
@@ -113,7 +131,6 @@ const Upload = (): JSX.Element => {
                     placeholder="가격"
                     rules={[required]}
                     value={price}
-                    width="98%"
                     onChange={(e) => setPrice(e.target.value)}
                     setValid={(value) => {
                         setOptionValid({ ...optionValid, price: value });
@@ -136,10 +153,48 @@ const Upload = (): JSX.Element => {
 
             <FileInputContent>
                 <FileInputBox>
-                    <TextBox placeholder="CSV 파일" value={contract} disabled isSelect />
-                    <TextBox placeholder="Block" value={contract} isSelect />
-                    <TextBox placeholder="Time Stamp" value={contract} isSelect />
-                    <Button color="warning">추가</Button>
+                    <TextBox
+                        placeholder="Block"
+                        rules={[required]}
+                        value={block}
+                        onChange={(e) => setBlock(e.target.value)}
+                        setValid={(value) => {
+                            setFileValid({ ...fileValid, block: value });
+                        }}
+                        isSelect
+                        innerClass="input-box"
+                    />
+                    <TextBox
+                        placeholder="Time Stamp"
+                        rules={[required]}
+                        value={timeStamp}
+                        onChange={(e) => setTimeStamp(e.target.value)}
+                        setValid={(value) => {
+                            setFileValid({ ...fileValid, timeStamp: value });
+                        }}
+                        isSelect
+                        innerClass="input-box"
+                    />
+                    <File
+                        placeholder="CSV 파일"
+                        rules={[required]}
+                        onChange={(e) => {
+                            setFile(e.target.files[0]);
+                            console.log("file :::: ", file);
+                        }}
+                        setValid={(value) => {
+                            setFileValid({ ...fileValid, file: value });
+                        }}
+                        innerClass="input-box"
+                    />
+                    <Button
+                        disabled={!isAddValid}
+                        onClick={addFile}
+                        color="warning"
+                        innerClass="small-btn"
+                    >
+                        추가
+                    </Button>
                 </FileInputBox>
                 <FileInputBox>test2</FileInputBox>
             </FileInputContent>
