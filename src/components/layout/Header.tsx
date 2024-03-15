@@ -15,6 +15,7 @@ const HeaderBox: StyledInterface = styled.header`
     height: 70px;
     padding: 0 10px;
     top: 0;
+    border-bottom: 1px solid #e6e6e9;
     background-color: #fff;
     z-index: 1;
 
