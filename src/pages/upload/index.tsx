@@ -16,15 +16,17 @@ import {
     BoldTitle,
     MsgBox,
 } from "@/styles/upload/upload.ts";
+import { theme } from "@/styles/theme";
 
 // types, interfaces
-import { str, num, coinFile } from "@/interfaces/common";
-import { uploadValid, uploadRes } from "@/interfaces/upload";
+import { str, num } from "@/interfaces/common";
+import { uploadValid, filesdValid, coinFile, uploadRes } from "@/interfaces/upload";
 
 // components
 import TextBox from "@/components/input/TextBox";
 import File from "@/components/input/File";
 import Button from "@/components/button/Button";
+import SubButton from "@/components/button/SubButton";
 import DefaultDialog from "@/components/dialog/DefaultDialog";
 
 const Upload = (): JSX.Element => {
@@ -35,15 +37,15 @@ const Upload = (): JSX.Element => {
     const [price, setPrice] = useState<num>(null);
     const [files, setFiles] = useState<coinFile[]>([]);
     const [file, setFile] = useState<File>(null);
-    const [block, setBlock] = useState<str>([]);
-    const [timeStamp, setTimeStamp] = useState<str>([]);
+    const [block, setBlock] = useState<str>(null);
+    const [timeStamp, setTimeStamp] = useState<str>(null);
     const [optionValid, setOptionValid] = useState<uploadValid>({
         ticker: null,
         contract: null,
         price: null,
-        files: [],
+        files: 0,
     });
-    const [fileValid, setFileValid] = useState<uploadValid>({
+    const [fileValid, setFileValid] = useState<filesdValid>({
         file: null,
         block: null,
         timeStamp: null,
@@ -87,8 +89,10 @@ const Upload = (): JSX.Element => {
     };
 
     const addFile = () => {
-        setFiles([...files, file]);
-        console.log("files ::: ", files);
+        if (!isAddValid) return;
+        const newFile: coinFile = { block, timeStamp, file };
+        setFiles(prevFiles => [...prevFiles, newFile]);
+        setOptionValid({ ...optionValid, files: true });
     };
 
     const closeDialog = (): void => {
@@ -103,49 +107,52 @@ const Upload = (): JSX.Element => {
     return (
         <UploadWrapper>
             <InputWrapper>
-                <TextBox
-                    placeholder="티커"
-                    rules={[required]}
-                    value={ticker}
-                    onChange={(e) => setTicker(e.target.value)}
-                    setValid={(value) => {
-                        setOptionValid({ ...optionValid, ticker: value });
-                    }}
-                    autoComplete="off"
-                    isSelect
-                    innerClass="input-box"
-                />
-                <TextBox
-                    placeholder="컨트랙트"
-                    rules={[required]}
-                    value={contract}
-                    onChange={(e) => setContract(e.target.value)}
-                    setValid={(value) => {
-                        setOptionValid({ ...optionValid, contract: value });
-                    }}
-                    autoComplete="off"
-                    isSelect
-                    innerClass="input-box"
-                />
-                <TextBox
-                    placeholder="가격"
-                    rules={[required]}
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    setValid={(value) => {
-                        setOptionValid({ ...optionValid, price: value });
-                    }}
-                    autoComplete="off"
-                    isSelect
-                    innerClass="input-box"
-                />
+                <div>
+                    <TextBox
+                        placeholder="티커"
+                        rules={[required]}
+                        value={ticker}
+                        onChange={(e) => setTicker(e.target.value)}
+                        setValid={(value) => {
+                            setOptionValid({ ...optionValid, ticker: value });
+                        }}
+                        autoComplete="off"
+                        isSelect
+                        innerClass="input-box"
+                    />
+                    <TextBox
+                        placeholder="컨트랙트"
+                        rules={[required]}
+                        value={contract}
+                        onChange={(e) => setContract(e.target.value)}
+                        setValid={(value) => {
+                            setOptionValid({ ...optionValid, contract: value });
+                        }}
+                        autoComplete="off"
+                        isSelect
+                        innerClass="input-box"
+                    />
+                    <TextBox
+                        placeholder="가격"
+                        rules={[required]}
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        setValid={(value) => {
+                            setOptionValid({ ...optionValid, price: value });
+                        }}
+                        autoComplete="off"
+                        isSelect
+                        innerClass="input-box"
+                    />
+                </div>
 
                 <Button
                     color="warning"
                     loading={loading}
                     disabled={!isValid}
                     onClick={uploadFile}
-                    innerClass="upload-btn"
+                    color={theme.colors.mainBtn}
+                    width="fit-content"
                 >
                     CSV 업로드
                 </Button>
@@ -153,50 +160,50 @@ const Upload = (): JSX.Element => {
 
             <FileInputContent>
                 <FileInputBox>
-                    <TextBox
-                        placeholder="Block"
-                        rules={[required]}
-                        value={block}
-                        onChange={(e) => setBlock(e.target.value)}
-                        setValid={(value) => {
-                            setFileValid({ ...fileValid, block: value });
-                        }}
-                        isSelect
-                        innerClass="input-box"
-                    />
-                    <TextBox
-                        placeholder="Time Stamp"
-                        rules={[required]}
-                        value={timeStamp}
-                        onChange={(e) => setTimeStamp(e.target.value)}
-                        setValid={(value) => {
-                            setFileValid({ ...fileValid, timeStamp: value });
-                        }}
-                        isSelect
-                        innerClass="input-box"
-                    />
-                    <File
-                        placeholder="CSV 파일"
-                        rules={[required]}
-                        onChange={(e) => {
-                            setFile(e.target.files[0]);
-                            console.log("file :::: ", file);
-                        }}
-                        setValid={(value) => {
-                            setFileValid({ ...fileValid, file: value });
-                        }}
-                        innerClass="input-box"
-                    />
-                    <Button
+                    <div>
+                        <TextBox
+                            placeholder="Block"
+                            rules={[required]}
+                            value={block}
+                            onChange={(e) => setBlock(e.target.value)}
+                            setValid={(value) => setFileValid({ ...fileValid, block: value })}
+                            isSelect
+                            innerClass="input-box"
+                        />
+                        <TextBox
+                            placeholder="Time Stamp"
+                            rules={[required]}
+                            value={timeStamp}
+                            onChange={(e) => setTimeStamp(e.target.value)}
+                            setValid={(value) => setFileValid({ ...fileValid, timeStamp: value })}
+                            isSelect
+                            innerClass="input-box"
+                        />
+                        <File
+                            placeholder="CSV 파일"
+                            rules={[required]}
+                            onChange={(e) => setFile(e.target.files[0])}
+                            setValid={(value) => setFileValid({ ...fileValid, file: value })}
+                            innerClass="input-box"
+                        />
+                    </div>
+                    <SubButton
                         disabled={!isAddValid}
                         onClick={addFile}
-                        color="warning"
-                        innerClass="small-btn"
+                        width="fit-content"
+                        innerClass="add-btn"
+                        outline
                     >
                         추가
-                    </Button>
+                    </SubButton>
                 </FileInputBox>
-                <FileInputBox>test2</FileInputBox>
+                {files.map((item, index) => (
+                    <FileInputBox key={`file-${index}`}>
+                        block: {item.block}<br />
+                        timeStamp: {item.timeStamp}<br />
+                        file: {item.file.name}<br />
+                    </FileInputBox>
+                ))}
             </FileInputContent>
 
             <DefaultDialog ref={msgDialogRef}>
