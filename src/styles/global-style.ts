@@ -44,11 +44,4 @@ export const GlobalStyle = createGlobalStyle`
           background-color: #f2f5fa;
         }
     }
-
-    /////////////////////////////////////////// button
-    .small-btn {
-        width: fit-content;
-        min-width: 52px;
-        padding: 4px 12px;
-    }
 `;

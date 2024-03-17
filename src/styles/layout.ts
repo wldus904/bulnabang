@@ -4,7 +4,7 @@ import { theme } from "./theme";
 export const LayoutWrapper = styled.div`
     height: 100vh;
     overflow-y: auto;
-    background-color: #f7f5fa;
+    background-color: #f4f2f6;
     &::-webkit-scrollbar {
         width: 15px; /* 스크롤바의 너비 */
     }

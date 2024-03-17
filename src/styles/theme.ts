@@ -23,6 +23,7 @@ export const theme: DefaultTheme = {
         warning: "#FFAE1F",
         error: "#EF5350",
         muted: "#5A6A85",
+        mainBtn: "#445169",
         lightprimary: "#ECF2FF",
         lightsecondary: "#E8F7FF",
         lightsuccess: "#E6FFFA",
