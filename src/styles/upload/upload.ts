@@ -2,71 +2,84 @@ import styled from "styled-components";
 import { theme } from "../theme";
 
 export const UploadWrapper: StyledInterface = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
     margin: 10px 0;
     background-color: #fff;
 `;
 
 export const InputWrapper: StyledInterface = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 
-    .input-box {
-        margin-right: 10px;
-        &:nth-child(1) {
-            width: 120px;
-        }
-        &:nth-child(2) {
-            width: 300px;
-        }
-        &:nth-child(3) {
-            width: 120px;
-        }
-    }
+    div {
+        display: flex;
+        align-items: center;
+        .input-box {
+            height: 30px;
+            margin-right: 10px;
 
-    .upload-btn {
-        width: 120px;
-        height: 35px;
+            &:nth-child(1) {
+                width: 120px;
+            }
+            &:nth-child(2) {
+                width: 300px;
+            }
+            &:nth-child(3) {
+                width: 120px;
+            }
+
+            input[type="text"] {
+                height: 28px;
+            }
+        }
     }
 `;
 
 export const FileInputContent: StyledInterface = styled.ul`
     width: 100%;
     padding: 0;
-    background-color: #f7f3ff;
+    margin: 20px 0;
     list-style-type: none;
-    border-top: 2px solid #aeb3bd;
 `;
 
 export const FileInputBox: StyledInterface = styled.li`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 12px;
+    border-bottom: 1px solid #ececec;
 
     &:first-child {
-        background-color: #f5eef9;
-        border: 1px solid #E3EAF8
+        border-top: 2px solid #c3c3c3;
         font-weight: 600;
         color: ${theme.colors.textPrimary};
+        background-color: #f9f9f9;
     }
 
-    .input-box {
-        margin-right: 10px;
-        &:nth-child(1) {
-            width: calc(30% - 10px);
-            max-width: 200px;
-        }
-        &:nth-child(2) {
-            width: calc(30% - 10px);
-            max-width: 200px;
-        }
-        &:nth-child(3) {
-            width: calc(40% - 10px);
-            max-width: 400px;
+    div {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 60px);
+
+        .input-box {
+            height: 30px;
+            margin-right: 10px;
+
+            &:nth-child(1) {
+                width: calc(30% - 10px);
+                max-width: 200px;
+            }
+            &:nth-child(2) {
+                width: calc(30% - 10px);
+                max-width: 200px;
+            }
+            &:nth-child(3) {
+                width: calc(40% - 10px);
+                max-width: 400px;
+            }
+
+            input[type="text"] {
+                height: 28px;
+            }
         }
     }
 `;
