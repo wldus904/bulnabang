@@ -66,11 +66,9 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
     };
 
     const changeHandler = (e) => {
-        console.log("1111 ::: ", e.target.files[0]);
         if (e.target.files.length === 0) return;
         setFile(e.target.files[0]);
         fileBoxRef.current.value = e.target.files[0].name;
-        console.log("22222 ::: ", e.target.files[0]);
         rest.onChange(e);
     };
 
