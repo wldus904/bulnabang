@@ -9,6 +9,8 @@ const Button: StyledInterface = styled.a`
     padding: 15px;
     transition: all ease 100ms 0s;
     border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
 
     &:hover {
         color: ${theme.colors.error};
@@ -23,10 +25,8 @@ const MenuButton = ({ children, currentPath, ...rest }): JSX.Element => {
 
     useEffect(() => {
         if (currentPath === rest.href) {
-            buttonRef.current.style.backgroundColor = theme.colors.error;
-            buttonRef.current.style.color = "#fff";
+            buttonRef.current.style.color = theme.colors.error;
         } else {
-            buttonRef.current.style.backgroundColor = "#fff";
             buttonRef.current.style.color = theme.colors.textPrimary;
         }
     }, [currentPath]);
