@@ -3,7 +3,7 @@ import styled, { StyledInterface } from "styled-components";
 import { NextRouter, useRouter } from "next/router";
 
 // icons
-import FireIcon from "@/resources/icon/fireIcon";
+import FireIcon from "@/assets/icon/fireIcon";
 
 const IconBox: StyledInterface = styled.div`
     display: flex;
