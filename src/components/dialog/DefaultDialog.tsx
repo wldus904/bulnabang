@@ -41,8 +41,8 @@ const DialogBox: StyledInterface = styled.div`
     opacity: 0;
     background-color: #fff;
     box-shadow: 0 0 4px #d6dbe4;
-    min-width: 250px;
-    min-height: 200px;
+    min-width: fit-content;
+    min-height: fit-content;
     width: ${(props) => props.width ?? 400}px;
 
     &.hidden {
