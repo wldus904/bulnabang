@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { StyledInterface } from "styled-components";
 import { theme } from "../theme";
 
 export const UploadWrapper: StyledInterface = styled.div`
@@ -34,14 +34,14 @@ export const InputWrapper: StyledInterface = styled.div`
     }
 `;
 
-export const FileInputContent: StyledInterface = styled.ul`
+export const FileInputWrapper: StyledInterface = styled.ul`
     width: 100%;
     padding: 0;
     margin: 20px 0;
     list-style-type: none;
 `;
 
-export const FileInputBox: StyledInterface = styled.li`
+export const FileInputContent: StyledInterface = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,32 +54,62 @@ export const FileInputBox: StyledInterface = styled.li`
         color: ${theme.colors.textPrimary};
         background-color: #f9f9f9;
     }
+`;
 
-    div {
-        display: flex;
-        align-items: center;
-        width: calc(100% - 60px);
+export const FileContent: StyledInterface = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #ececec;
 
-        .input-box {
-            height: 30px;
-            margin-right: 10px;
+    &.text-center {
+        justify-content: center;
+        font-size: 14px;
+    }
 
-            &:nth-child(1) {
-                width: calc(30% - 10px);
-                max-width: 200px;
-            }
-            &:nth-child(2) {
-                width: calc(30% - 10px);
-                max-width: 200px;
-            }
-            &:nth-child(3) {
-                width: calc(40% - 10px);
-                max-width: 400px;
-            }
+    .block {
+        font-size: 14px;
+        .timestamp {
+            font-size: 11px;
+            margin-left: 4px;
+        }
+    }
 
-            input[type="text"] {
-                height: 28px;
-            }
+    .file-name {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .close-btn {
+        cursor: pointer;
+    }
+`;
+
+export const FileInputBox: StyledInterface = styled.div`
+    display: flex;
+    align-items: center;
+    width: calc(100% - 60px);
+
+    .input-box {
+        height: 30px;
+        margin-right: 10px;
+
+        &:nth-child(1) {
+            width: calc(30% - 10px);
+            max-width: 200px;
+        }
+        &:nth-child(2) {
+            width: calc(30% - 10px);
+            max-width: 200px;
+        }
+        &:nth-child(3) {
+            width: calc(40% - 10px);
+            max-width: 400px;
+        }
+
+        input[type="text"] {
+            height: 28px;
         }
     }
 `;
