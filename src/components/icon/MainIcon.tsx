@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { StyledInterface } from "styled-components";
 import { NextRouter, useRouter } from "next/router";
-import Image from "next/image";
-import icon from "@/resources/icon/fire.svg";
+
+// icons
+import FireIcon from "@/resources/icon/fireIcon";
 
 const IconBox: StyledInterface = styled.div`
     display: flex;
@@ -23,7 +24,7 @@ const MainIcon = ({ ...rest }): JSX.Element => {
 
     return (
         <IconBox href="/" {...rest} onClick={clickHandler}>
-            <Image src={icon} width="40" height="40" alt="icon"></Image>
+            <FireIcon width="40" height="40" alt="icon"></FireIcon>
             BULNABANG
         </IconBox>
     );
