@@ -107,16 +107,6 @@ const DataTable = (): JSX.Element => {
                         onClick={search}
                         color={theme.colors.mainBtn}
                         width="fit-content"
-                        outline
-                        innerClass="input-box"
-                    >
-                        정렬 초기화
-                    </Button>
-                    <Button
-                        loading={loading}
-                        onClick={search}
-                        color={theme.colors.mainBtn}
-                        width="fit-content"
                         innerClass="input-box"
                     >
                         저장
