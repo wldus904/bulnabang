@@ -26,7 +26,7 @@ const DefaultButton: StyledInterface = styled.button`
     padding-left: 14px;
     padding-right: 14px;
     transition: all ease 0.1s;
-    height: ${(props) => props.height ?? "32"}px;
+    height: ${(props) => props.height ?? "32px"};
     width: ${(props) => props.width ?? "100%"};
     font-size: 14px;
 
