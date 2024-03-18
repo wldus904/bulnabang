@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FileWrapper = styled.div`
     position: relative;
@@ -63,6 +63,7 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
         }
 
         if (rest.setValid) rest.setValid(res);
+        setIsValid(res);
     };
 
     const changeHandler = (e) => {
@@ -70,6 +71,14 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
         setFile(e.target.files[0]);
         fileBoxRef.current.value = e.target.files[0].name;
         rest.onChange(e);
+        fileBoxRef.current.blur();
+    };
+
+    const clear = () => {
+        setIsValid(true);
+        setFile(null);
+        fileBoxRef.current.value = null;
+        fileRef.current.value = null;
     };
 
     return (
@@ -77,9 +86,7 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
             <FileBox
                 ref={fileBoxRef}
                 onBlur={(e) => checkValid(e.target.value)}
-                onClick={(e) => {
-                    fileRef.current.click();
-                }}
+                onClick={(e) => fileRef.current.click()}
                 placeholder={placeholder}
                 type="text"
                 readOnly
@@ -89,8 +96,8 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
             <InputFile
                 ref={fileRef}
                 {...rest}
-                type="file"
                 onChange={(e) => changeHandler(e)}
+                type="file"
             ></InputFile>
         </FileWrapper>
     );
