@@ -15,9 +15,8 @@ import {
     FileContent,
     FileInputBox,
     MsgContent,
-    BoldTitle,
     MsgBox,
-} from "@/styles/upload/upload.ts";
+} from "@/styles/dataUpload/dataUpload";
 import { theme } from "@/styles/theme";
 
 // types, interfaces
@@ -33,7 +32,7 @@ import DefaultDialog from "@/components/dialog/DefaultDialog";
 import IconButton from "@/components/button/IconButton";
 
 // icons
-import CloseIcon from "@/resources/icon/closeIcon";
+import CloseIcon from "@/assets/icon/closeIcon";
 
 const Upload = (): JSX.Element => {
     const [msgTitle, setMsgTitle] = useState<str>(null);
@@ -84,13 +83,9 @@ const Upload = (): JSX.Element => {
             form.append("files", files);
             // headers -> 'Content-Type': 'multipart/form-data'
             // const res: uploadRes = await registrationApi.postRegistration(form);
-            setMsgTitle("업로드 완료");
-            setMsg("파일 업로드를 완료했습니다");
-            msgDialogRef.current.open();
+            openDialog("업로드 완료", "파일 업로드를 완료했습니다");
         } catch (error) {
-            setMsgTitle("업로드 실패");
-            setMsg(error.message);
-            msgDialogRef.current.open();
+            openDialog("업로드 실패", error.message);
         }
     };
 
@@ -105,6 +100,12 @@ const Upload = (): JSX.Element => {
         setFiles((prevFiles) => prevFiles.filter((file, fileIdx) => fileIdx !== idx));
         // delFile 함수가 끝난 후 files에 데이터가 반영되기 때문에 0이 아닌 1로 계산
         setOptionValid({ ...optionValid, files: files.length > 1 });
+    };
+
+    const openDialog = (title, msg): void => {
+        setMsgTitle(title);
+        setMsg(msg);
+        msgDialogRef.current.open();
     };
 
     const closeDialog = (): void => {
@@ -160,7 +161,6 @@ const Upload = (): JSX.Element => {
                 </div>
 
                 <Button
-                    color="warning"
                     loading={loading}
                     disabled={!isValid}
                     onClick={uploadFile}
@@ -230,11 +230,10 @@ const Upload = (): JSX.Element => {
                 )}
             </FileInputWrapper>
 
-            <DefaultDialog ref={msgDialogRef}>
+            <DefaultDialog ref={msgDialogRef} title={msgTitle}>
                 <MsgContent>
-                    <BoldTitle>{msgTitle}</BoldTitle>
                     <MsgBox>{msg}</MsgBox>
-                    <Button onClick={closeDialog} color="error">
+                    <Button onClick={closeDialog} color="#445169">
                         확인
                     </Button>
                 </MsgContent>
