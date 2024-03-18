@@ -10,7 +10,9 @@ import styled from "styled-components";
 import {
     UploadWrapper,
     InputWrapper,
+    FileInputWrapper,
     FileInputContent,
+    FileContent,
     FileInputBox,
     MsgContent,
     BoldTitle,
@@ -28,6 +30,10 @@ import File from "@/components/input/File";
 import Button from "@/components/button/Button";
 import SubButton from "@/components/button/SubButton";
 import DefaultDialog from "@/components/dialog/DefaultDialog";
+import IconButton from "@/components/button/IconButton";
+
+// icons
+import CloseIcon from "@/resources/icon/closeIcon";
 
 const Upload = (): JSX.Element => {
     const [msgTitle, setMsgTitle] = useState<str>(null);
@@ -38,7 +44,7 @@ const Upload = (): JSX.Element => {
     const [files, setFiles] = useState<coinFile[]>([]);
     const [file, setFile] = useState<File>(null);
     const [block, setBlock] = useState<str>(null);
-    const [timeStamp, setTimeStamp] = useState<str>(null);
+    const [timestamp, setTimestamp] = useState<str>(null);
     const [optionValid, setOptionValid] = useState<uploadValid>({
         ticker: null,
         contract: null,
@@ -48,7 +54,7 @@ const Upload = (): JSX.Element => {
     const [fileValid, setFileValid] = useState<filesdValid>({
         file: null,
         block: null,
-        timeStamp: null,
+        timestamp: null,
     });
     const [isValid, setIsValid] = useState<Boolean>(false);
     const [isAddValid, setIsAddValid] = useState<Boolean>(false);
@@ -68,16 +74,16 @@ const Upload = (): JSX.Element => {
     const uploadFile = async (): void => {
         validator(optionValid, setIsValid);
         if (!isValid) return;
-
         setLoading(true);
+
         try {
-            const params: uploadValid = {
-                ticker,
-                contract,
-                price,
-                files,
-            };
-            // const res: uploadRes = await registrationApi.postRegistration(params);
+            const form = new FormData();
+            form.append("ticker", ticker);
+            form.append("contract", contract);
+            form.append("price", price);
+            form.append("files", files);
+            // headers -> 'Content-Type': 'multipart/form-data'
+            // const res: uploadRes = await registrationApi.postRegistration(form);
             setMsgTitle("업로드 완료");
             setMsg("파일 업로드를 완료했습니다");
             msgDialogRef.current.open();
@@ -90,13 +96,20 @@ const Upload = (): JSX.Element => {
 
     const addFile = () => {
         if (!isAddValid) return;
-        const newFile: coinFile = { block, timeStamp, file };
-        setFiles(prevFiles => [...prevFiles, newFile]);
+        const newFile: coinFile = { block, timestamp, file };
+        setFiles((prevFiles) => [...prevFiles, newFile]);
         setOptionValid({ ...optionValid, files: true });
+    };
+
+    const delFile = (idx) => {
+        setFiles((prevFiles) => prevFiles.filter((file, fileIdx) => fileIdx !== idx));
+        // delFile 함수가 끝난 후 files에 데이터가 반영되기 때문에 0이 아닌 1로 계산
+        setOptionValid({ ...optionValid, files: files.length > 1 });
     };
 
     const closeDialog = (): void => {
         msgDialogRef.current.close();
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -158,24 +171,24 @@ const Upload = (): JSX.Element => {
                 </Button>
             </InputWrapper>
 
-            <FileInputContent>
-                <FileInputBox>
-                    <div>
+            <FileInputWrapper>
+                <FileInputContent>
+                    <FileInputBox>
+                        <TextBox
+                            placeholder="Time Stamp"
+                            rules={[required]}
+                            value={timestamp}
+                            onChange={(e) => setTimestamp(e.target.value)}
+                            setValid={(value) => setFileValid({ ...fileValid, timestamp: value })}
+                            isSelect
+                            innerClass="input-box"
+                        />
                         <TextBox
                             placeholder="Block"
                             rules={[required]}
                             value={block}
                             onChange={(e) => setBlock(e.target.value)}
                             setValid={(value) => setFileValid({ ...fileValid, block: value })}
-                            isSelect
-                            innerClass="input-box"
-                        />
-                        <TextBox
-                            placeholder="Time Stamp"
-                            rules={[required]}
-                            value={timeStamp}
-                            onChange={(e) => setTimeStamp(e.target.value)}
-                            setValid={(value) => setFileValid({ ...fileValid, timeStamp: value })}
                             isSelect
                             innerClass="input-box"
                         />
@@ -186,7 +199,7 @@ const Upload = (): JSX.Element => {
                             setValid={(value) => setFileValid({ ...fileValid, file: value })}
                             innerClass="input-box"
                         />
-                    </div>
+                    </FileInputBox>
                     <SubButton
                         disabled={!isAddValid}
                         onClick={addFile}
@@ -196,15 +209,26 @@ const Upload = (): JSX.Element => {
                     >
                         추가
                     </SubButton>
-                </FileInputBox>
-                {files.map((item, index) => (
-                    <FileInputBox key={`file-${index}`}>
-                        block: {item.block}<br />
-                        timeStamp: {item.timeStamp}<br />
-                        file: {item.file.name}<br />
-                    </FileInputBox>
-                ))}
-            </FileInputContent>
+                </FileInputContent>
+                {files.length > 0 ? (
+                    files.map((item, idx) => (
+                        <FileContent key={`file-${idx}`}>
+                            <div>
+                                <div className="block">
+                                    {item.block}
+                                    <span className="timestamp">({item.timestamp})</span>
+                                </div>
+                                <div className="file-name">{item.file.name}</div>
+                            </div>
+                            <IconButton onClick={() => delFile(idx)}>
+                                <CloseIcon width="18" height="18" alt="close"></CloseIcon>
+                            </IconButton>
+                        </FileContent>
+                    ))
+                ) : (
+                    <FileContent className="text-center">CSV 파일을 추가해주세요</FileContent>
+                )}
+            </FileInputWrapper>
 
             <DefaultDialog ref={msgDialogRef}>
                 <MsgContent>
