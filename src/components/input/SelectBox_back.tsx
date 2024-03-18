@@ -1,7 +1,7 @@
 import styled, { StyledInterface } from "styled-components";
 import { theme } from "@/styles/theme";
 
-const BasicSelectBox: StyledInterface = styled.ul`
+const BasicSelectBox: StyledInterface = styled.select`
     height: 36px;
     min-width: ${(props) => (props.width ? props.width : props.outline ? "70px" : "0")};
     border-radius: 4px;
@@ -13,7 +13,6 @@ const BasicSelectBox: StyledInterface = styled.ul`
     appearance: none;
     text-align: center;
     transition: all ease 0.1s;
-    list-style-type: none;
 
     &:focus {
         border: 1px solid ${theme.colors.main};
@@ -26,7 +25,7 @@ const BasicSelectBox: StyledInterface = styled.ul`
     }
 `;
 
-const Option: StyledInterface = styled.li`
+const Option: StyledInterface = styled.option`
     font-size: 14px;
     width: 100px !important;
     min-height: 32px;
