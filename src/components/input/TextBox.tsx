@@ -12,8 +12,8 @@ const TextBoxWrapper = styled.div`
     background-color: #fff;
 
     &:focus-within {
-        border: 1px solid ${theme.colors.warning};
-        box-shadow: 0 0 2px ${theme.colors.warning};
+        border: 1px solid ${theme.colors.main};
+        box-shadow: 0 0 2px ${theme.colors.main};
     }
 
     &.invalid {

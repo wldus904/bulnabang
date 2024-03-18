@@ -11,7 +11,7 @@ const RadioWrapper: StyledInterface = styled.div`
 
     /* Checked */
     input[type="radio"]:checked + label {
-        background: ${theme.colors.warning};
+        background: ${theme.colors.main};
         color: #fff;
     }
 
@@ -29,7 +29,7 @@ const Label: StyledInterface = styled.label`
     text-align: center;
 
     &:hover {
-        background-color: ${theme.colors.warning};
+        background-color: ${theme.colors.main};
         color: #fff;
         cursor: pointer;
     }

@@ -13,8 +13,8 @@ const FileWrapper = styled.div`
     background-color: #fff;
 
     &:focus-within {
-        border: 1px solid ${theme.colors.warning};
-        box-shadow: 0 0 2px ${theme.colors.warning};
+        border: 1px solid ${theme.colors.main};
+        box-shadow: 0 0 2px ${theme.colors.main};
     }
 
     &.invalid {
@@ -49,7 +49,6 @@ const InputFile = styled.input`
 
 const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
     const [isValid, setIsValid] = useState(true);
-    const [file, setFile] = useState(null);
     const fileBoxRef = useRef<ref>();
     const fileRef = useRef<ref>();
 
@@ -68,7 +67,6 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
 
     const changeHandler = (e) => {
         if (e.target.files.length === 0) return;
-        setFile(e.target.files[0]);
         fileBoxRef.current.value = e.target.files[0].name;
         rest.onChange(e);
         fileBoxRef.current.blur();
@@ -76,7 +74,6 @@ const TextBox = ({ children, placeholder, rules, innerClass, ...rest }) => {
 
     const clear = () => {
         setIsValid(true);
-        setFile(null);
         fileBoxRef.current.value = null;
         fileRef.current.value = null;
     };
