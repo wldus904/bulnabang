@@ -96,9 +96,7 @@ const Header = (props): JSX.Element => {
 
     return (
         <HeaderBox>
-            <MenuWrapper>
-                <Menu />
-            </MenuWrapper>
+            <MenuWrapper>{/* <Menu /> */}</MenuWrapper>
             <BsList onClick={() => props.toggleMenu()} className="side-menu-btn" />
             {/* <BsPersonCircle
                 onClick={() => setIsShowUserMenu(!isShowUserMenu)}
