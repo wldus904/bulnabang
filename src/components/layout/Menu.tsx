@@ -21,8 +21,8 @@ const Menu = (props): JSX.Element => {
     const router: NextRouter = useRouter();
     let [currentPath, setCurrentPath] = useState<string | null>(router.pathname);
     const menus = [
-        { name: "Data upload", url: "/upload" },
-        { name: "Data table", url: "/table" },
+        { name: "Data upload", url: "/dataUpload" },
+        { name: "Data table", url: "/dataTable" },
     ];
 
     useEffect(() => {
