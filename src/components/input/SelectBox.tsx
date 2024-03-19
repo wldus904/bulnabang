@@ -54,6 +54,8 @@ const SelectedInput: StyledInterface = styled.input`
 `;
 
 const InputButton: StyledInterface = styled.div`
+    display: flex;
+    align-items: center;
     position: absolute;
     right: 5px;
 `

@@ -36,10 +36,12 @@ const DataTable = (): JSX.Element => {
 
     const search = () => {
         const params = {
-            ticker,
-            contract,
+            type,
+            tag,
             startTimestamp,
             endTimestamp,
+            ticker,
+            contract
         };
         console.log("params ::: ", params);
     };
@@ -96,21 +98,23 @@ const DataTable = (): JSX.Element => {
                         onClick={search}
                         color={theme.colors.mainBtn}
                         width="fit-content"
+                        height="35px"
                         innerClass="input-box"
+                        outline
                     >
                         검색
                     </Button>
-                    <Button
-                        loading={loading}
-                        onClick={search}
-                        color={theme.colors.mainBtn}
-                        width="fit-content"
-                        innerClass="input-box"
-                    >
-                        저장
-                    </Button>
                 </SearchContent>
-                <div></div>
+                <Button
+                    loading={loading}
+                    onClick={search}
+                    color={theme.colors.mainBtn}
+                    width="120px"
+                    height="35px"
+                    innerClass="input-box"
+                >
+                    저장
+                </Button>
             </TopWrapper>
         </DataTabledWrapper>
     );
