@@ -58,7 +58,7 @@ export const MainBox = styled.div`
 `;
 export const Contents = styled.div`
     position: relative;
-    max-width: 1100px;
+    max-width: 1300px;
     padding: 10px;
     min-height: calc(100vh - 100px); // view height - (header + footer)
     background-color: #fff;
