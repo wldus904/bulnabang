@@ -1,19 +1,19 @@
 import styled, { StyledInterface } from "styled-components";
 import { theme } from "@/styles/theme";
-import { useState } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { useEffect, useRef, useState } from "react";
+import { IoMdArrowDropdown, IoMdClose } from "react-icons/io";
 
 const BasicSelectWrapper: StyledInterface = styled.div`
     position: relative;
-    min-width: ${(props) => (props.width ? props.width : "fit-content")};
+    width: ${(props) => (props.width ? props.width : "150px")};
     align-self: center;
 `;
 
 const SelectedOption: StyledInterface = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 5px;
+    padding: 0 45px 0 5px;
     font-size: 14px;
     border-radius: 4px;
     border: 1px solid #d6dbe4;
@@ -22,18 +22,18 @@ const SelectedOption: StyledInterface = styled.div`
     transition: all ease 0.1s;
     transform: rotate(0deg);
 
-    &:focus-within {
+    &.invalid {
+        border: 1px solid ${theme.colors.error};
+        box-shadow: 0 0 2px ${theme.colors.error};
+    }
+
+    &.active {
         border: 1px solid ${theme.colors.main};
         box-shadow: 0 0 2px ${theme.colors.main};
 
         .ic-arrow {
             transform: rotate(180deg);
         }
-    }
-
-    &.invalid {
-        border: 1px solid ${theme.colors.error};
-        box-shadow: 0 0 2px ${theme.colors.error};
     }
 `;
 
@@ -53,16 +53,21 @@ const SelectedInput: StyledInterface = styled.input`
     }
 `;
 
+const InputButton: StyledInterface = styled.div`
+    position: absolute;
+    right: 5px;
+`
+
 const BasicSelectBox: StyledInterface = styled.ul`
     position: absolute;
     list-style: none;
-    top: 32px;
+    top: 36px;
     left: 0;
-    width: 100%;
+    width: calc(100% - 2px);
     max-height: 200px;
     padding: 0;
     margin: 0;
-    border-radius: 4px;
+    border-radius: 3px;
     border: 1px solid #d6dbe4;
     overflow: hidden;
     background-color: #fff;
@@ -78,44 +83,83 @@ const Option: StyledInterface = styled.li`
         background-color: #f9f9fd;
     }
 
-    .active {
+    &.selected {
         background-color: #f6f3ff;
     }
 `;
 
-const SelectBox = ({ options, innerClass, ...rest }): JSX.Element => {
-    const [currentValue, setCurrentValue] = useState(rest.value);
+const SelectBox = ({ options, innerClass, value, placeholder, onChange }): JSX.Element => {
+    const initialValue = value || { value: '', title: '' };
+    const [currentValue, setCurrentValue] = useState(initialValue);
     const [isShowOptions, setShowOptions] = useState(false);
+    const wrapperRef = useRef<ref>();
+    const hiddenRef = useRef<ref>();
+    const inputRef = useRef<ref>();
+    const selectBoxRef = useRef<ref>();
 
-    const handleOnChangeSelectValue = (e) => {
-        const { innerText } = e.target;
-        setCurrentValue(innerText);
+    const handleOnChangeSelectValue = option => {
+        onChange(option)
+        setCurrentValue(option);
+        setShowOptions(false);
     };
+
+    const clear = e => {
+        setCurrentValue({ value: '', title: '' });
+        e.stopPropagation();
+    }
+
+    useEffect(() => {
+        if (!isShowOptions) inputRef.current.blur();
+    }, [isShowOptions])
+
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setShowOptions(false);
+            }
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+    }, []);
 
     return (
         <BasicSelectWrapper
+            ref={wrapperRef}
             onClick={() => setShowOptions((prev) => !prev)}
             className={innerClass ?? ""}
         >
-            <SelectedOption className={!currentValue ? "placeholder" : ""}>
-                <SelectedInput {...rest} type="text" readOnly />
-                <IoMdArrowDropdown size="16" className="ic-arrow" />
+            <SelectedOption
+                className={[currentValue.value ? "placeholder" : "", isShowOptions ? 'active' : '']}
+            >
+                <SelectedInput
+                    ref={inputRef}
+                    value={currentValue.title}
+                    placeholder={placeholder}
+                    type="text"
+                    readOnly
+                />
+                <InputButton>
+                    {currentValue.value && <IoMdClose onClick={clear} size="18" />}
+                    <IoMdArrowDropdown size="18" className="ic-arrow" />
+                </InputButton>
             </SelectedOption>
             {isShowOptions && (
-                <BasicSelectBox className={innerClass ? innerClass : ""} {...rest}>
+                <BasicSelectBox ref={selectBoxRef} className={innerClass ? innerClass : ""}>
                     {options.map((option) => {
                         return (
                             <Option
-                                onClick={handleOnChangeSelectValue}
+                                onClick={e => handleOnChangeSelectValue(option)}
                                 key={option.value ?? option}
+                                className={currentValue.value === option.value ? 'selected' : ''}
                             >
                                 {option.title ?? option}
                             </Option>
                         );
                     })}
                 </BasicSelectBox>
-            )}
-        </BasicSelectWrapper>
+            )
+            }
+        </BasicSelectWrapper >
     );
 };
 

@@ -17,13 +17,13 @@ import SelectBox from "@/components/input/SelectBox";
 
 const DataTable = (): JSX.Element => {
     const [loading, setLoading] = useState<str>(false);
-    const [type, setType] = useState<str>(undefined);
+    const [type, setType] = useState<str>(null);
     const [types, setTypes] = useState<str>([
         { value: "type1", title: "거래소1" },
         { value: "type2", title: "거래소2" },
         { value: "type3", title: "거래소3" },
     ]);
-    const [tag, setTag] = useState<str>(undefined);
+    const [tag, setTag] = useState<str>(null);
     const [tags, setTags] = useState<str>([
         { value: "tag1", title: "고수1" },
         { value: "tag2", title: "고수2" },
@@ -52,14 +52,14 @@ const DataTable = (): JSX.Element => {
                         placeholder="타입"
                         options={types}
                         value={type}
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(option) => setType(option.value)}
                         innerClass="input-box"
                     ></SelectBox>
                     <SelectBox
                         placeholder="TAG"
                         options={tags}
                         value={tag}
-                        onChange={(e) => setTag(e.target.value)}
+                        onChange={(option) => setTag(option.value)}
                         innerClass="input-box"
                     ></SelectBox>
                     <TextBox
