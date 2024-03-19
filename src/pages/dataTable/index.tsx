@@ -49,19 +49,17 @@ const DataTable = (): JSX.Element => {
             <TopWrapper>
                 <SearchContent>
                     <SelectBox
-                        name="타입"
+                        placeholder="타입"
                         options={types}
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        outline
                         innerClass="input-box"
                     ></SelectBox>
                     <SelectBox
-                        name="TAG"
+                        placeholder="TAG"
                         options={tags}
                         value={tag}
                         onChange={(e) => setTag(e.target.value)}
-                        outline
                         innerClass="input-box"
                     ></SelectBox>
                     <TextBox
